@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive ANCA-Associated Vasculitis Treatment Planner</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #1a3a5c;
+            --primary-light: #2c5282;
+            --accent: #c9a84c;
+            --success: #2d6a4f;
+            --warning: #b7791f;
+            --danger: #9b2c2c;
+            --info: #2b6cb0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #f5f6f8;
+            min-height: 100vh;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            padding-bottom: 40px;
+            color: #1a202c;
+            font-size: 10px;
+            line-height: 1.3;
+        }
+
+        .navbar { 
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1); 
+            background: linear-gradient(135deg, #1a3a5c, #2c5282) !important;
+            padding: 6px 0;
+        }
+        .navbar-brand { font-size: 1rem; }
+
+        .container-fluid { max-width: 1100px; margin: 0 auto; padding: 8px; }
+
+        .card {
+            border: 1px solid #dde1e6;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            background: white;
+        }
+        .card-header { 
+            border-radius: 4px 4px 0 0 !important; 
+            font-weight: 600; 
+            font-family: 'Georgia', serif;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+        .card-body { padding: 8px 12px; }
+
+        .section-box {
+            background: #fafbfc;
+            border-radius: 3px;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-left: 3px solid var(--primary-light);
+        }
+
+        .row { margin-bottom: 0; }
+        .row.g-3 { --bs-gutter-y: 0.3rem; --bs-gutter-x: 0.5rem; }
+        .mb-3 { margin-bottom: 0.3rem !important; }
+        .mb-4 { margin-bottom: 0.5rem !important; }
+        .mt-2 { margin-top: 0.3rem !important; }
+        .mt-3 { margin-top: 0.4rem !important; }
+        .mt-4 { margin-top: 0.5rem !important; }
+        .g-3 { gap: 0.3rem; }
+
+        .form-label { font-size: 0.75rem; margin-bottom: 2px; font-weight: 600; color: #4a5568; }
+        .form-control, .form-select { font-size: 0.8rem; padding: 4px 8px; height: auto; }
+        .form-control-sm, .form-select-sm { font-size: 0.75rem; padding: 3px 6px; }
+        .small, small { font-size: 0.7rem; }
+
+        .cover-signature-page {
+            background: white;
+            border: 2px solid var(--accent);
+            border-radius: 3px;
+            padding: 15px 20px 25px 20px;
+            position: relative;
+            margin-bottom: 8px;
+            page-break-after: always;
+            min-height: 650px;
+        }
+        .cover-signature-page::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid var(--accent);
+            border-radius: 2px;
+            pointer-events: none;
+        }
+        .cover-header {
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+        .cover-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.2;
+        }
+        .cover-subtitle {
+            font-size: 0.8rem;
+            color: var(--primary-light);
+            font-style: italic;
+            margin-top: 2px;
+        }
+        .cover-body {
+            display: flex;
+            gap: 15px;
+            min-height: 120px;
+        }
+        .cover-left {
+            flex: 1;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        .cover-left strong {
+            display: inline-block;
+            width: 100px;
+            color: var(--primary);
+            font-size: 0.7rem;
+        }
+        .cover-right {
+            flex: 1;
+            border-left: 1px solid #e2e8f0;
+            padding-left: 15px;
+            font-size: 0.75rem;
+        }
+        .cover-right h6 {
+            color: var(--primary);
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .confidential-stamp {
+            display: inline-block;
+            border: 1.5px solid var(--danger);
+            color: var(--danger);
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-weight: 700;
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            margin: 5px 0;
+        }
+        .cover-footer {
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.6rem;
+            color: #718096;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .cover-sig-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid var(--accent);
+            min-height: 220px;
+        }
+        .cover-sig-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .cover-sig-auth-text {
+            text-align: center;
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+            color: #4a5568;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        .cover-sig-table {
+            width: 70%;
+            margin: 10px auto;
+            font-size: 0.75rem;
+        }
+        .cover-sig-table td {
+            padding: 3px 5px;
+        }
+        .cover-sig-line {
+            border-bottom: 1px solid #2d3748;
+            width: 280px;
+            margin: 25px auto 8px;
+        }
+        .cover-sig-name { 
+            text-align: center; 
+            font-weight: 600; 
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+        .cover-sig-cred { 
+            text-align: center; 
+            font-size: 0.7rem; 
+            color: #4a5568;
+            margin-top: 3px;
+        }
+        .cover-sig-date-line { 
+            border-bottom: 1px solid #2d3748;
+            width: 180px;
+            margin: 20px auto 5px;
+        }
+        .cover-sig-date-label {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #4a5568;
+        }
+        .cover-sig-disclaimer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.65rem;
+            color: #718096;
+            font-style: italic;
+            line-height: 1.3;
+        }
+
+        .auto-calculated {
+            background-color: #f0f4ff !important;
+            border: 1.5px solid #2c5282 !important;
+            font-weight: 600;
+            color: #1a3a5c;
+        }
+        .calculated-badge {
+            display: inline-block;
+            background: #2c5282;
+            color: white;
+            padding: 1px 5px;
+            border-radius: 2px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            margin-left: 3px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 3px;
+            padding: 8px 6px;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            margin-bottom: 4px;
+            border-top: 2px solid var(--primary-light);
+        }
+        .stat-value { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+        .stat-label { color: #4a5568; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.3px; }
+
+        .total-dose-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 3px;
+            padding: 10px 15px;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+        .total-dose-card.cyc-card { border-top: 3px solid var(--danger); }
+        .total-dose-card.pred-card { border-top: 3px solid #db2777; }
+        .total-dose-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .total-dose-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #4a5568;
+            margin-bottom: 2px;
+        }
+        .total-dose-detail { font-size: 0.7rem; color: #718096; margin-top: 2px; }
+
+        .risk-prominent-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        .risk-prominent-header {
+            padding: 10px 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .risk-prominent-header.high-risk { background: #fecaca; color: #991b1b; border-bottom: 3px solid #dc2626; }
+        .risk-prominent-header.moderate-risk { background: #fed7aa; color: #9a3412; border-bottom: 3px solid #ea580c; }
+        .risk-prominent-header.low-risk { background: #bbf7d0; color: #166534; border-bottom: 3px solid #16a34a; }
+        .risk-prominent-body {
+            padding: 12px 15px;
+            font-size: 0.85rem;
+        }
+        .risk-factor-badge {
+            display: inline-block;
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin: 2px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .risk-score-display {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .risk-category-display {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .bvas-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2px 6px;
+            margin: 1px 0;
+            background: white;
+            border-radius: 2px;
+            border-left: 2px solid #e2e8f0;
+            font-size: 0.75rem;
+        }
+        .bvas-item.major { border-left-color: var(--danger); background: #fef5f5; }
+        .bvas-item label { flex: 1; margin: 0; font-size: 0.75rem; }
+        .bvas-item select { width: 110px; font-size: 0.7rem; padding: 2px 4px; }
+
+        .bvas-system-header {
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 2px 2px 0 0;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+        .bvas-system-body { padding: 3px 5px; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 2px 2px; }
+
+        .treatment-timeline-item {
+            padding: 5px 8px;
+            margin: 2px 0;
+            background: #fafbfc;
+            border-radius: 2px;
+            border-left: 3px solid var(--primary-light);
+            font-size: 0.8rem;
+        }
+        .drug-rtx { border-left-color: #3b82f6; }
+        .drug-cyc { border-left-color: #ef4444; }
+        .drug-cyc-oral { border-left-color: #f59e0b; }
+        .drug-mmf { border-left-color: #8b5cf6; }
+        .drug-avacopan { border-left-color: #06b6d4; }
+        .drug-aza { border-left-color: #10b981; }
+        .drug-stop { border-left-color: #6b7280; }
+
+        .badge-rtx { background-color: #dbeafe; color: #1e40af; padding: 1px 5px; border-radius: 2px; font-size: 0.7rem; font-weight: 600; }
+        .badge-cyc { background-color: #fee2e2; color: #991b1b; padding: 1px 5px; border-radius: 2px; font-size: 0.7rem; font-weight: 600; }
+        .badge-cyc-oral { background-color: #fef3c7; color: #92400e; padding: 1px 5px; border-radius: 2px; font-size: 0.7rem; font-weight: 600; }
+        .badge-mmf { background-color: #ede9fe; color: #5b21b6; padding: 1px 5px; border-radius: 2px; font-size: 0.7rem; font-weight: 600; }
+        .badge-avacopan { background-color: #cffafe; color: #155e75; padding: 1px 5px; border-radius: 2px; font-size: 0.7rem; font-weight: 600; }
+        .badge-aza { background-color: #d1fae5; color: #065f46; padding: 1px 5px; border-radius: 2px; font-size: 0.7rem; font-weight: 600; }
+        .badge-stop { background-color: #e5e7eb; color: #374151; padding: 1px 5px; border-radius: 2px; font-size: 0.7rem; font-weight: 600; }
+
+        .btn {
+            font-size: 0.8rem;
+            padding: 6px 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 3px;
+        }
+        .btn-primary { background: var(--primary); border: none; }
+        .btn-info { background: var(--info); border: none; color: white; }
+        .btn-sm { font-size: 0.7rem; padding: 4px 10px; }
+        .btn-lg { font-size: 0.9rem; padding: 8px 20px; }
+
+        .info-box { background: #f0f4ff; border-left: 3px solid #2c5282; padding: 6px 10px; border-radius: 2px; margin: 4px 0; font-size: 0.8rem; }
+        .dose-highlight { font-size: 0.9rem; font-weight: 700; color: var(--primary); background: #f0f4ff; padding: 1px 5px; border-radius: 2px; }
+        .timing-badge { background: #fef3c7; color: #92400e; padding: 1px 5px; border-radius: 2px; font-size: 0.7rem; font-weight: 600; }
+
+        .taper-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; margin-top: 4px; }
+        .taper-table th { background: #f8f9fa; padding: 4px 6px; text-align: left; border-bottom: 2px solid #dee2e6; font-weight: 600; }
+        .taper-table td { padding: 3px 6px; border-bottom: 1px solid #e9ecef; }
+
+        h4 { font-size: 1rem; margin-bottom: 6px; }
+        h5 { font-size: 0.9rem; margin-bottom: 4px; }
+        h6 { font-size: 0.85rem; margin-bottom: 3px; }
+        hr { margin: 4px 0; }
+
+        @media print {
+            body { background: white !important; font-size: 8px; line-height: 1.2; }
+            .navbar, footer, .no-print { display: none !important; }
+            .btn { display: none !important; }
+            .card { break-inside: avoid; box-shadow: none !important; border: 0.5px solid #ddd !important; margin-bottom: 3px !important; }
+            .card:hover { transform: none; }
+            .section-box { background: white; border-left: 1.5px solid #1a3a5c; padding: 4px 6px; margin-bottom: 3px; }
+            .container-fluid { padding: 0; max-width: 100%; }
+            canvas { max-width: 100%; max-height: 180px; }
+            .cover-signature-page { page-break-after: always; padding: 10px 15px 20px 15px; min-height: auto; }
+            .cover-sig-section { margin-top: 15px; padding-top: 12px; min-height: 180px; }
+            .cover-sig-line { width: 240px; margin: 20px auto 6px; }
+            .cover-sig-date-line { width: 150px; margin: 15px auto 3px; }
+            .total-dose-section { page-break-before: always; }
+            .card-body { padding: 4px 8px; }
+            .card-header { padding: 3px 8px; font-size: 0.75rem; }
+            h4 { font-size: 0.85rem; }
+            h5 { font-size: 0.8rem; }
+            h6 { font-size: 0.75rem; }
+            .treatment-timeline-item { padding: 2px 5px; margin: 1px 0; font-size: 0.65rem; }
+            .stat-card { padding: 4px 3px; }
+            .stat-value { font-size: 0.9rem; }
+            .stat-label { font-size: 0.55rem; }
+            .total-dose-value { font-size: 1.2rem; }
+            .risk-prominent-body { padding: 8px 10px; font-size: 0.75rem; }
+            .risk-score-display { font-size: 1.5rem; }
+            @page { margin: 0.8cm; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top no-print">
+        <div class="container">
+            <span class="navbar-brand">🏥 ANCA Planner v7.7</span>
+            <span class="nav-link text-white" id="currentPatient" style="font-size:0.85rem;">New Patient</span>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-2">
+        <!-- INPUT SECTION -->
+        <div id="inputSection">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    
+                    <!-- Patient Info -->
+                    <div class="card shadow-sm">
+                        <div class="card-header text-white" style="background:var(--primary);"><h5 class="mb-0">📋 Patient Identification</h5></div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3"><label class="form-label">Patient Name</label><input type="text" class="form-control" id="patientName" value="Doe, John"></div>
+                                <div class="col-md-2"><label class="form-label">MRN</label><input type="text" class="form-control" id="patientId" value="MRN-001234"></div>
+                                <div class="col-md-2"><label class="form-label">PHN (10-digit)</label><input type="text" class="form-control" id="phn" value="1234567890" maxlength="10"></div>
+                                <div class="col-md-2"><label class="form-label">DOB</label><input type="date" class="form-control" id="dob" onchange="calculateAgeAndEGFR()" value="1969-06-15"></div>
+                                <div class="col-md-1"><label class="form-label">Sex</label><select class="form-select" id="sex" onchange="calculateEGFR()"><option value="female">F</option><option value="male">M</option></select></div>
+                                <div class="col-md-2"><label class="form-label">Age <span class="calculated-badge">Auto</span></label><input type="text" class="form-control auto-calculated" id="age" readonly></div>
+                            </div>
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-2"><label class="form-label">Weight (kg)</label><input type="number" class="form-control" id="weight" value="70" step="0.1" oninput="updateWeightDisplay();calculateEGFR();"></div>
+                                <div class="col-md-2"><label class="form-label">Height (cm)</label><input type="number" class="form-control" id="height" value="170"></div>
+                                <div class="col-md-4"><label class="form-label">Treatment Start <span class="calculated-badge" style="background:#c9a84c;">Today</span></label><div class="d-flex gap-1"><input type="date" class="form-control" id="startDate"><button type="button" class="btn btn-outline-primary btn-sm" onclick="setStartDateToday()">📅 Today</button></div></div>
+                                <div class="col-md-4"><label class="form-label">Referring Physician</label><input type="text" class="form-control" id="referringPhysician" value="Dr. Sarah Chen"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Labs + Treatment in one row -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header text-white" style="background:#2b6cb0;"><h6 class="mb-0">🔬 Labs & Auto-eGFR (CKD-EPI 2021)</h6></div>
+                                <div class="card-body">
+                                    <div class="row g-2">
+                                        <div class="col-6"><label class="form-label">Creatinine (μmol/L)</label><input type="number" class="form-control form-control-sm" id="creatinine" value="300" onchange="calculateEGFR()"></div>
+                                        <div class="col-6"><label class="form-label">eGFR <span class="calculated-badge">Auto</span></label><input type="text" class="form-control form-control-sm auto-calculated" id="egfrDisplay" readonly></div>
+                                        <div class="col-6"><label class="form-label">eGFR Stage</label><input type="text" class="form-control form-control-sm auto-calculated" id="egfrCategory" readonly></div>
+                                        <div class="col-3"><label class="form-label">Prot (g/d)</label><input type="number" class="form-control form-control-sm" id="proteinuria" value="2.5" step="0.01"></div>
+                                        <div class="col-3"><label class="form-label">Alb (g/L)</label><input type="number" class="form-control form-control-sm" id="albumin" value="32"></div>
+                                    </div>
+                                    <div id="egfrFormulaBox" style="font-size:0.65rem;color:#4a5568;margin-top:2px;"></div>
+                                    <input type="hidden" id="egfr" value="25">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header text-white" style="background:var(--primary);"><h6 class="mb-0">🦠 Disease & Treatment</h6></div>
+                                <div class="card-body">
+                                    <div class="row g-2">
+                                        <div class="col-6"><label class="form-label">ANCA Type</label><select class="form-select form-select-sm" id="ancaType"><option value="PR3">PR3</option><option value="MPO">MPO</option><option value="Unknown">Unknown</option></select></div>
+                                        <div class="col-6"><label class="form-label">Severity</label><select class="form-select form-select-sm" id="severity"><option value="Severe">Severe</option><option value="Non-severe">Non-severe</option></select></div>
+                                        <div class="col-6"><label class="form-label">Diagnosis</label><select class="form-select form-select-sm" id="diagnosisType"><option value="new">New</option><option value="relapse">Relapse</option></select></div>
+                                        <div class="col-6"><label class="form-label">Steroid Protocol</label><select class="form-select form-select-sm" id="steroidChoice"><option value="pexivas">PEXIVAS</option><option value="standard">Standard</option></select></div>
+                                        <div class="col-12"><label class="form-label">Induction</label><select class="form-select form-select-sm" id="inductionChoice"><option value="1">RTX+CYC (RITUXIVAS)</option><option value="2">RTX alone (RAVE)</option><option value="3">IV CYC (CYCLOPS)</option><option value="4">Oral CYC</option><option value="5">Avacopan (ADVOCATE)</option><option value="6">MMF (MYCYC)</option></select></div>
+                                        <div class="col-12"><label class="form-label">Maintenance</label><select class="form-select form-select-sm" id="maintenanceChoice"><option value="1">RTX 500mg IV ×2 at Mo4, then q6mo (MAINRITSAN)</option><option value="2">AZA 1yr → taper</option><option value="3">Extended AZA</option><option value="4">MMF 2yr (IMPROVE)</option></select></div>
+                                    </div>
+                                    <div class="row g-2 mt-1">
+                                        <div class="col-8"><label class="form-label">Prescribing Physician</label><input type="text" class="form-control form-control-sm" id="physicianName" value="Dr. Michael Roberts"></div>
+                                        <div class="col-2"><label class="form-label">License #</label><input type="text" class="form-control form-control-sm" id="licenseNumber" value="LIC-987654"></div>
+                                        <div class="col-2"><label class="form-label">NPI #</label><input type="text" class="form-control form-control-sm" id="npiNumber" value="1234567890"></div>
+                                    </div>
+                                    <button class="btn btn-primary btn-sm w-100 mt-1" onclick="generateFullPlan()">🎯 Generate Plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AKRiS & BVAS -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-info text-white" style="cursor:pointer;padding:4px 8px;" onclick="toggleCardBody(this)"><h6 class="mb-0" style="font-size:0.75rem;">🧬 AKRiS ▸</h6></div>
+                                <div class="card-body" style="display:none;padding:6px;">
+                                    <div class="row g-2"><div class="col-6"><label class="form-label small">Normal Glom (%)</label><input type="number" class="form-control form-control-sm" id="normalGlom" value="15"></div><div class="col-6"><label class="form-label small">IFTA</label><select class="form-select form-select-sm" id="iftaGrade"><option value="0">0</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></div></div>
+                                    <button class="btn btn-info btn-sm w-100 mt-1" onclick="calculateAKRiS()">Calculate</button>
+                                    <div id="akrisResult" class="mt-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-header text-white" style="background:#6f42c1;cursor:pointer;padding:4px 8px;" onclick="toggleCardBody(this)"><h6 class="mb-0" style="font-size:0.75rem;">🩺 BVAS v3 ▸</h6></div>
+                                <div class="card-body" style="display:none;padding:4px;max-height:350px;overflow-y:auto">
+                                    <div id="bvasForm"></div>
+                                    <button class="btn btn-info btn-sm w-100 mt-1" onclick="calculateBVAS()">Calculate BVAS</button>
+                                    <div id="bvasResult" class="mt-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTS SECTION -->
+        <div id="resultsSection" style="display:none;">
+            
+            <!-- COMBINED COVER + SIGNATURE PAGE -->
+            <div class="cover-signature-page" id="coverPage">
+                <div class="cover-header">
+                    <div class="cover-title">Comprehensive ANCA-Associated<br>Vasculitis Treatment Planner</div>
+                    <div class="cover-subtitle">Web-Based Clinical Decision Support Tool</div>
+                </div>
+                <div class="cover-body">
+                    <div class="cover-left">
+                        <p><strong>Patient:</strong> <span id="fpName"></span></p>
+                        <p><strong>MRN:</strong> <span id="fpId"></span></p>
+                        <p><strong>PHN:</strong> <span id="fpPhn"></span></p>
+                        <p><strong>DOB:</strong> <span id="fpDob"></span></p>
+                        <p><strong>Age/Sex:</strong> <span id="fpAge"></span></p>
+                        <p><strong>Treatment Start:</strong> <span id="fpStartDate"></span></p>
+                        <p><strong>Referring:</strong> <span id="fpReferrer"></span></p>
+                        <p><strong>Generated:</strong> <span id="frontPageDate"></span></p>
+                    </div>
+                    <div class="cover-right">
+                        <h6>Treatment Summary</h6>
+                        <p><strong>Induction:</strong> <span id="fpInduction"></span></p>
+                        <p><strong>Maintenance:</strong> <span id="fpMaintenance"></span></p>
+                        <p><strong>Steroid:</strong> <span id="fpSteroid"></span></p>
+                        <p><strong>eGFR:</strong> <span id="fpEgfr"></span></p>
+                        <div class="confidential-stamp">CONFIDENTIAL - MEDICAL RECORD</div>
+                    </div>
+                </div>
+                <div class="cover-footer">
+                    KDIGO 2024 | CKD-EPI 2021 | BVAS v3 | AKRiS 2024 | PEXIVAS | ADVOCATE | MAINRITSAN
+                </div>
+                
+                <div class="cover-sig-section">
+                    <div class="cover-sig-title">Physician Authorization &amp; Signature</div>
+                    <div class="cover-sig-auth-text">
+                        I have reviewed this treatment plan in its entirety and authorize<br>
+                        the prescribed medications, dosing schedules, and monitoring plan as outlined.<br>
+                        This plan is based on current evidence-based guidelines and best practices.
+                    </div>
+                    <table class="cover-sig-table">
+                        <tr><td style="font-weight:600;width:90px;">Patient Name:</td><td id="sigPatientName">-</td></tr>
+                        <tr><td style="font-weight:600;">MRN:</td><td id="sigPatientId">-</td><td style="font-weight:600;">PHN:</td><td id="sigPhn">-</td></tr>
+                    </table>
+                    
+                    <div style="min-height:50px;"></div>
+                    <div class="cover-sig-line"></div>
+                    <div class="cover-sig-name" id="sigPhysicianName">-</div>
+                    <div class="cover-sig-cred">
+                        Medical License #: <span id="sigLicense">-</span> &nbsp;|&nbsp; NPI #: <span id="sigNpi">-</span>
+                    </div>
+                    
+                    <div style="min-height:15px;"></div>
+                    <div class="cover-sig-date-line"></div>
+                    <div class="cover-sig-date-label">Date Signed</div>
+                    
+                    <div class="cover-sig-disclaimer">
+                        <strong>This document is part of the patient's permanent medical record.</strong><br>
+                        Treatment plans should be reviewed and updated at each clinical encounter.<br>
+                        Any changes to this plan require a new authorization signature.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats Row -->
+            <div class="row mb-2 screen-only" id="quickStats"></div>
+
+            <!-- BVAS + Dosing Summary in one row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-2" id="bvasSummaryCard" style="display:none;">
+                        <div class="card-header text-white" id="bvasSummaryHeader" style="padding:3px 8px;"><h6 class="mb-0" style="font-size:0.75rem;">🩺 BVAS v3</h6></div>
+                        <div class="card-body" id="bvasSummary" style="padding:4px 8px;"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-2"><div class="card-header bg-warning text-dark" style="padding:3px 8px;"><h6 class="mb-0" style="font-size:0.75rem;">💊 Dosing Summary</h6></div><div class="card-body" id="dosingSummary" style="padding:4px 8px;"></div></div>
+                </div>
+            </div>
+
+            <!-- PROMINENT RISK ASSESSMENT - FULL WIDTH -->
+            <div class="risk-prominent-card" id="riskProminentCard">
+                <div class="risk-prominent-header" id="riskProminentHeader">
+                    ⚠️ Risk Assessment & Monitoring
+                </div>
+                <div class="risk-prominent-body" id="riskProminentBody"></div>
+            </div>
+
+            <!-- Treatment Schedules -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-2"><div class="card-header text-white" style="background:var(--primary);padding:3px 8px;"><h6 class="mb-0" style="font-size:0.75rem;">💉 Induction</h6></div><div class="card-body" id="inductionSchedule" style="padding:4px 8px;"></div></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-2"><div class="card-header text-white" style="background:var(--success);padding:3px 8px;"><h6 class="mb-0" style="font-size:0.75rem;">🔄 Maintenance</h6></div><div class="card-body" id="maintenanceSchedule" style="padding:4px 8px;"></div></div>
+                </div>
+            </div>
+
+            <!-- Charts - Two per row -->
+            <div class="row">
+                <div class="col-md-6"><div class="card shadow-sm mb-2 screen-only"><div class="card-header bg-white" style="padding:3px 8px;"><h6 class="mb-0" style="font-size:0.75rem;">📈 Prednisone Taper</h6></div><div class="card-body" style="padding:4px;"><canvas id="predChart" style="height:200px;"></canvas></div></div></div>
+                <div class="col-md-6"><div class="card shadow-sm mb-2 screen-only"><div class="card-header bg-white" style="padding:3px 8px;"><h6 class="mb-0" style="font-size:0.75rem;">📊 Drug Ribbons</h6></div><div class="card-body" style="padding:4px;"><canvas id="ribbonChart" style="height:200px;"></canvas></div></div></div>
+            </div>
+
+            <!-- PEXIVAS Schedule + Supportive Care -->
+            <div class="row">
+                <div class="col-md-8"><div class="card shadow-sm mb-2"><div class="card-header bg-white" style="padding:3px 8px;"><h6 class="mb-0" style="font-size:0.75rem;">📋 PEXIVAS 52-Week Schedule</h6></div><div class="card-body" style="padding:4px 8px;"><div id="pexivasScheduleContent"></div></div></div></div>
+                <div class="col-md-4"><div class="card shadow-sm mb-2"><div class="card-header bg-info text-white" style="padding:3px 8px;"><h6 class="mb-0" style="font-size:0.75rem;">🛡️ Supportive Care</h6></div><div class="card-body" id="supportiveCare" style="padding:4px 8px;"></div></div></div>
+            </div>
+
+            <!-- TOTAL DOSES -->
+            <div class="total-dose-section" style="page-break-before:always;">
+                <h4 style="text-align:center;color:var(--primary);margin-bottom:8px;text-transform:uppercase;letter-spacing:1.5px;">Total Cumulative Doses</h4>
+                <div class="row" id="totalDoseSummary"></div>
+            </div>
+
+            <div class="text-center mb-2 no-print">
+                <button class="btn btn-success btn-sm me-1" onclick="window.print()">🖨️ Print</button>
+                <button class="btn btn-secondary btn-sm me-1" onclick="newPlan()">📝 New</button>
+                <button class="btn btn-outline-primary btn-sm" onclick="exportData()">📥 JSON</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-1 mt-2 no-print" style="font-size:0.6rem;">KDIGO 2024 | PEXIVAS | ADVOCATE | MAINRITSAN | BVAS v3 | CKD-EPI 2021 | AKRiS 2024</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let akrisData=null,bvasData=null,treatmentCharts={},currentPlanData=null,calculatedEGFRvalue=null;
+
+        const BVAS_STRUCTURE={
+            '1. GENERAL (Max 3)':{items:[{id:'myalgia',label:'Myalgia',max:1},{id:'arthralgia',label:'Arthralgia/arthritis',max:1},{id:'fever',label:'Fever ≥38°C',max:2},{id:'weightloss',label:'Weight loss ≥2kg',max:2}]},
+            '2. CUTANEOUS (Max 6)':{items:[{id:'infarct',label:'Infarct',max:2},{id:'purpura',label:'Purpura',max:2},{id:'ulcer',label:'Ulcer',max:2},{id:'gangrene',label:'Gangrene',max:4,major:true},{id:'otherskin',label:'Other skin',max:2}]},
+            '3. MUCOUS/EYES (Max 6)':{items:[{id:'mouthulcers',label:'Mouth ulcers',max:1},{id:'genitalulcers',label:'Genital ulcers',max:1},{id:'adnexal',label:'Adnexal inflammation',max:2},{id:'conjunctivitis',label:'Conjunctivitis',max:2},{id:'blurredvision',label:'Blurred vision',max:2},{id:'uveitis',label:'Uveitis',max:4,major:true},{id:'retinal',label:'Retinal hemorrhage',max:4,major:true},{id:'scleritis',label:'Scleritis',max:4,major:true},{id:'proptosis',label:'Proptosis',max:4,major:true},{id:'keratitis',label:'Keratitis',max:4,major:true},{id:'visualchange',label:'Visual change',max:4,major:true}]},
+            '4. ENT (Max 6)':{items:[{id:'nasaldischarge',label:'Nasal discharge',max:2},{id:'nasalcongestion',label:'Nasal congestion',max:2},{id:'sinusitis',label:'Sinusitis',max:2},{id:'epistaxis',label:'Epistaxis',max:2},{id:'otitis',label:'Otitis media',max:2},{id:'mastoiditis',label:'Mastoiditis',max:2},{id:'subglottic',label:'Subglottic stenosis',max:4,major:true},{id:'conductivehl',label:'Conductive HL',max:2},{id:'sensorineuralhl',label:'Sensorineural HL',max:4,major:true},{id:'hoarseness',label:'Hoarseness',max:2},{id:'auricular',label:'Auricular chondritis',max:2}]},
+            '5. CHEST (Max 6)':{items:[{id:'wheeze',label:'Wheeze',max:2},{id:'cough',label:'Cough',max:2},{id:'dyspnea',label:'Dyspnea',max:2},{id:'hemoptysis',label:'Hemoptysis',max:2},{id:'nodules',label:'Nodules/cavities',max:2},{id:'effusion',label:'Pleural effusion',max:2},{id:'infiltrate',label:'Infiltrate',max:2},{id:'endobronchial',label:'Endobronchial',max:2},{id:'alvhemorrhage',label:'Alveolar hemorrhage',max:4,major:true},{id:'respfailure',label:'Respiratory failure',max:4,major:true}]},
+            '6. CARDIOVASCULAR (Max 6)':{items:[{id:'losspulses',label:'Loss of pulses',max:2},{id:'bruits',label:'Bruits',max:2},{id:'valvular',label:'Valvular disease',max:2},{id:'pericarditis',label:'Pericarditis',max:2},{id:'aortic',label:'Aortic involvement',max:2},{id:'ischemicpain',label:'Ischemic pain',max:2},{id:'cardiomyopathy',label:'Cardiomyopathy',max:4,major:true},{id:'chf',label:'CHF',max:4,major:true}]},
+            '7. ABDOMINAL (Max 9)':{items:[{id:'abdominalpain',label:'Abdominal pain',max:2},{id:'peritonitis',label:'Peritonitis',max:4,major:true},{id:'gihemorrhage',label:'GI hemorrhage',max:4,major:true},{id:'bloodydiarrhea',label:'Bloody diarrhea',max:4,major:true},{id:'ischemicabpain',label:'Ischemic pain',max:4,major:true},{id:'pancreatitis',label:'Pancreatitis',max:4,major:true}]},
+            '8. RENAL (Max 12)':{items:[{id:'hypertension_bvas',label:'HTN diastolic>95',max:2},{id:'edema',label:'Edema',max:2},{id:'proteinuria_bvas',label:'Proteinuria>0.2g',max:4,major:true},{id:'hematuria',label:'Hematuria≥10RBC',max:4,major:true},{id:'rbcCasts',label:'RBC casts',max:4,major:true},{id:'cr125',label:'Cr 125-249',max:4,major:true},{id:'cr250',label:'Cr 250-499',max:4,major:true},{id:'cr500',label:'Cr ≥500',max:4,major:true},{id:'risingcr',label:'Rising Cr>30%',max:4,major:true}]},
+            '9. NERVOUS (Max 9)':{items:[{id:'headache',label:'Headache',max:1},{id:'meningitis',label:'Meningitis',max:2},{id:'confusion',label:'Confusion',max:2},{id:'psychosis',label:'Psychosis',max:2},{id:'seizures',label:'Seizures',max:4,major:true},{id:'stroke',label:'CVA',max:4,major:true},{id:'cordlesion',label:'Cord lesion',max:4,major:true},{id:'cnpalsy',label:'CN palsy',max:4,major:true},{id:'sensoryneuro',label:'Sensory neuropathy',max:4,major:true},{id:'mononeuritis',label:'Mononeuritis multiplex',max:4,major:true}]}
+        };
+
+        document.addEventListener('DOMContentLoaded',function(){
+            setStartDateToday();
+            document.getElementById('currentPatient').textContent='New Patient';
+            buildBVASForm();
+            updateWeightDisplay();
+            calculateAgeAndEGFR();
+        });
+
+        function setStartDateToday(){const t=new Date();document.getElementById('startDate').value=`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;}
+        function toggleCardBody(h){const b=h.nextElementSibling;b.style.display=b.style.display==='none'?'block':'none';h.querySelector('h6').textContent=h.querySelector('h6').textContent.replace('▸','▾').replace('▾','▸');}
+        function buildBVASForm(){
+            let h='';
+            for(const[n,d]of Object.entries(BVAS_STRUCTURE)){
+                h+=`<div class="mb-1"><div class="bvas-system-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.toggle').textContent=this.nextElementSibling.style.display==='none'?'▶':'▼'"><span>${n}</span><span class="toggle">▼</span></div><div class="bvas-system-body">`;
+                d.items.forEach(i=>{
+                    const opts=i.max===1?'<option value="0">0</option><option value="1">1</option>':i.max===2?'<option value="0">0</option><option value="1">1</option><option value="2">2</option>':'<option value="0">0</option><option value="4">4</option>';
+                    h+=`<div class="bvas-item${i.major?' major':''}"><label>${i.label}${i.major?'⚠️':''}</label><select class="form-select form-select-sm" id="bvas-${i.id}">${opts}</select></div>`;
+                });
+                h+=`</div></div>`;
+            }
+            document.getElementById('bvasForm').innerHTML=h;
+        }
+
+        function calculateAgeFromDOB(){
+            const dob=document.getElementById('dob').value;if(!dob){document.getElementById('age').value='';return null;}
+            const d=new Date(dob),t=new Date();let a=t.getFullYear()-d.getFullYear();
+            if(t.getMonth()<d.getMonth()||(t.getMonth()===d.getMonth()&&t.getDate()<d.getDate()))a--;
+            document.getElementById('age').value=a;return a;
+        }
+        function calculateAgeAndEGFR(){calculateAgeFromDOB();calculateEGFR();}
+        function calculateEGFR(){
+            const cr=parseFloat(document.getElementById('creatinine').value),age=parseInt(document.getElementById('age').value),sex=document.getElementById('sex').value;
+            if(!cr||!age||cr<=0){calculatedEGFRvalue=null;return null;}
+            const crMg=cr/88.4,k=sex==='female'?0.7:0.9,alpha=sex==='female'?-0.241:-0.302,gf=sex==='female'?1.012:1.0;
+            const scrK=crMg/k;let egfr=scrK<=1?142*Math.pow(scrK,alpha)*Math.pow(0.9938,age)*gf:142*Math.pow(scrK,-1.200)*Math.pow(0.9938,age)*gf;
+            egfr=Math.round(egfr);let cat=egfr>=90?'G1':egfr>=60?'G2':egfr>=45?'G3a':egfr>=30?'G3b':egfr>=15?'G4':'G5';
+            document.getElementById('egfrDisplay').value=egfr+' mL/min/1.73m²';document.getElementById('egfrCategory').value=cat;
+            document.getElementById('egfr').value=egfr;calculatedEGFRvalue=egfr;
+        }
+        function updateWeightDisplay(){}
+
+        function calculateBVAS(){
+            let t=0,mj=0,ml=[];
+            for(const[n,d]of Object.entries(BVAS_STRUCTURE)){d.items.forEach(i=>{const e=document.getElementById(`bvas-${i.id}`);if(e){const v=parseInt(e.value)||0;t+=v;if(v>=4&&i.major){mj++;ml.push(i.label);}}});}
+            let cat,color,rec;
+            if(t===0){cat='Remission';color='#10b981';rec='Continue maintenance.';}
+            else if(t<=6){cat='Low Activity';color='#f59e0b';rec='Optimize maintenance.';}
+            else if(t<=14){cat='Moderate';color='#f97316';rec='Consider therapy change.';}
+            else{cat='High/Severe';color='#ef4444';rec='Induction indicated. Consider PLEX.';}
+            bvasData={total:t,category:cat,colorHex:color,majorItems:mj,majorItemsList:ml,recommendation:rec};
+            document.getElementById('bvasResult').innerHTML=`<div style="padding:6px;border-radius:2px;text-align:center;background:${t===0?'#d1fae5':t<=6?'#fef3c7':t<=14?'#fed7aa':'#fecaca'};border:1px solid ${color}"><strong>BVAS: ${t}/63 - ${cat}</strong>${mj>0?`<br><small class="text-danger">⚠️ ${mj} major: ${ml.join(', ')}</small>`:''}<br><small>${rec}</small></div>`;
+        }
+
+        function calculateAKRiS(){
+            const cr=parseFloat(document.getElementById('creatinine').value),ng=parseFloat(document.getElementById('normalGlom').value),ifta=parseInt(document.getElementById('iftaGrade').value);
+            if(!cr||isNaN(ng)||isNaN(ifta))return;
+            let s=0;if(cr>450)s+=11;else if(cr>=250)s+=4;if(ng<10)s+=7;else if(ng<=25)s+=4;if(ifta>=2)s+=3;
+            let cat=s<=4?'LOW':s<=11?'MEDIUM':s<=18?'HIGH':'VERY HIGH',surv=s<=4?96:s<=11?75:s<=18?49:12;
+            akrisData={score:s,category:cat,survival:surv};
+            document.getElementById('akrisResult').innerHTML=`<div class="alert alert-${s<=4?'success':s<=11?'warning':'danger'} py-1" style="font-size:0.75rem;"><strong>AKRiS: ${s} - ${cat}</strong> (${surv}%)</div>`;
+        }
+
+        function fmt(d){const dt=new Date(d);return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;}
+        function addD(d,days){const r=new Date(d);r.setDate(r.getDate()+days);return r;}
+        function addW(d,w){return addD(d,w*7);}
+        function addM(d,m){const r=new Date(d);r.setMonth(r.getMonth()+m);return r;}
+        function calcOralCyc(age,w,egfr){let b=age>70?1.0:age>60?1.5:2.0;if(egfr<30)b-=0.5;return{dose:Math.min(Math.round(b*w),200)};}
+        function calcIVCyc(age,w,egfr){let b=age>70?10.0:age>60?12.5:15.0;if(egfr<30)b-=2.5;return{dose:Math.min(Math.round(b*w),1200)};}
+        function calcAZA(w){return{dose:Math.round(1.75*w/25)*25};}
+        function getEndInduction(d){switch(d.inductionChoice){case 1:return addW(d.startDate,12);case 2:return addW(d.startDate,4);case 3:return addW(d.startDate,15);case 4:return addM(d.startDate,3);case 5:return addW(d.startDate,52);case 6:return addW(d.startDate,12);default:return addW(d.startDate,12);}}
+        
+        function getPexivasTaper(w){
+            let t=[];
+            if(w<50){t=[[1,50],[2,25],[3,20],[4,20],[5,15],[6,15],[7,12.5],[8,12.5],[9,10],[10,10],[11,7.5],[12,7.5],[13,6],[14,6]];for(let wk=15;wk<=52;wk++)t.push([wk,5]);}
+            else if(w<=75){t=[[1,60],[2,30],[3,25],[4,25],[5,20],[6,20],[7,15],[8,15],[9,12.5],[10,12.5],[11,10],[12,10],[13,7.5],[14,7.5]];for(let wk=15;wk<=52;wk++)t.push([wk,5]);}
+            else{t=[[1,75],[2,40],[3,30],[4,30],[5,25],[6,25],[7,20],[8,20],[9,15],[10,15],[11,12.5],[12,12.5],[13,10],[14,10],[15,7.5],[16,7.5],[17,7.5],[18,7.5]];for(let wk=19;wk<=52;wk++)t.push([wk,5]);}
+            return t;
+        }
+
+        function calcRisk(d){
+            let s=0,f=[];
+            if(d.ancaType==='PR3'){s+=2;f.push('PR3-ANCA (high relapse risk)');}
+            if(d.age<60){s+=1;f.push('Age <60 years');}
+            if(d.egfr<30){s+=1;f.push('eGFR <30 mL/min/1.73m²');}
+            if(d.severity==='Severe'){s+=1;f.push('Severe presentation');}
+            if(d.diagnosisType==='relapse'){s+=1;f.push('Relapse (vs new diagnosis)');}
+            if(bvasData&&bvasData.total>=15){s+=2;f.push(`BVAS ≥15 (${bvasData.category})`);}
+            if(bvasData&&bvasData.majorItems>0){s+=2;f.push(`${bvasData.majorItems} major BVAS item(s): ${bvasData.majorItemsList.join(', ')}`);}
+            if(akrisData&&['HIGH','VERY HIGH'].includes(akrisData.category)){s+=2;f.push(`AKRiS: ${akrisData.category} (Score: ${akrisData.score}, Survival: ${akrisData.survival}%)`);}
+            return{score:s,category:s>=6?'High':s>=3?'Moderate':'Low',factors:f,
+                recommendation:s>=6?'Extended maintenance (36+ months). Intensive monitoring q1-3 months. Consider PLEX if indicated.':
+                              s>=3?'Standard maintenance (18-24 months). Monitor q3-6 months.':
+                              'Standard maintenance (12-18 months). Routine monitoring q6 months.'};
+        }
+
+        function calcTotalCyc(data){
+            let t=0,dt=[];
+            if(data.inductionChoice===1){t=500*6;dt.push('500mg×6 doses=3,000mg');}
+            else if(data.inductionChoice===3){const c=calcIVCyc(data.age,data.weight,data.egfr);t=c.dose*6;dt.push(`${c.dose}mg×6=${t.toLocaleString()}mg`);}
+            else if(data.inductionChoice===4){const c=calcOralCyc(data.age,data.weight,data.egfr);t=c.dose*90;dt.push(`${c.dose}mg/d×90d=${t.toLocaleString()}mg`);}
+            return{totalMg:t,totalG:(t/1000).toFixed(1),details:dt};
+        }
+
+        function calcTotalPred(steroids){
+            let t=0,dt=[],cd=null,sw=null;
+            steroids.schedule.forEach(s=>{if(s.dose!==cd){if(cd!==null){const w=s.week-sw;t+=cd*7*w;dt.push(`${cd}mg×${w}wks=${(cd*7*w).toLocaleString()}mg`);}cd=s.dose;sw=s.week;}});
+            if(cd!==null){const lw=steroids.schedule[steroids.schedule.length-1].week,w=lw-sw+1;t+=cd*7*w;dt.push(`${cd}mg×${w}wks=${(cd*7*w).toLocaleString()}mg`);}
+            return{totalMg:t,totalG:(t/1000).toFixed(1),details:dt};
+        }
+
+        function generateFullPlan(){
+            if(!calculatedEGFRvalue)calculateEGFR();
+            const data={
+                patientName:document.getElementById('patientName').value||'Unknown',patientId:document.getElementById('patientId').value||'N/A',
+                phn:document.getElementById('phn').value||'N/A',dob:document.getElementById('dob').value,
+                age:parseInt(document.getElementById('age').value)||55,sex:document.getElementById('sex').value,
+                weight:parseFloat(document.getElementById('weight').value)||70,creatinine:parseFloat(document.getElementById('creatinine').value)||300,
+                egfr:calculatedEGFRvalue||25,proteinuria:parseFloat(document.getElementById('proteinuria').value)||0,
+                ancaType:document.getElementById('ancaType').value,severity:document.getElementById('severity').value,
+                diagnosisType:document.getElementById('diagnosisType').value,
+                inductionChoice:parseInt(document.getElementById('inductionChoice').value),
+                steroidChoice:document.getElementById('steroidChoice').value,
+                maintenanceChoice:parseInt(document.getElementById('maintenanceChoice').value),
+                startDate:new Date(document.getElementById('startDate').value||new Date()),
+                referringPhysician:document.getElementById('referringPhysician').value||'N/A',
+                physicianName:document.getElementById('physicianName').value||'N/A',
+                licenseNumber:document.getElementById('licenseNumber').value||'N/A',npiNumber:document.getElementById('npiNumber').value||'N/A'
+            };
+            const risk=calcRisk(data),induction=genInduction(data),steroids=genSteroids(data),maintenance=genMaintenance(data,risk);
+            const supportive=genSupportive(data),totalCyc=calcTotalCyc(data),totalPred=calcTotalPred(steroids);
+            currentPlanData={patient:data,risk,induction,steroids,maintenance,supportive,totalCyc,totalPred};
+            
+            document.getElementById('frontPageDate').textContent=fmt(new Date());
+            document.getElementById('fpName').textContent=data.patientName;
+            document.getElementById('fpId').textContent=data.patientId;
+            document.getElementById('fpPhn').textContent=data.phn;
+            document.getElementById('fpDob').textContent=data.dob;
+            document.getElementById('fpAge').textContent=`${data.age}y / ${data.sex==='male'?'M':'F'}`;
+            document.getElementById('fpStartDate').textContent=fmt(data.startDate);
+            document.getElementById('fpReferrer').textContent=data.referringPhysician;
+            document.getElementById('fpInduction').textContent=induction.type;
+            document.getElementById('fpMaintenance').textContent=maintenance.type;
+            document.getElementById('fpSteroid').textContent=steroids.type;
+            document.getElementById('fpEgfr').textContent=data.egfr+' mL/min/1.73m²';
+            
+            document.getElementById('sigPatientName').textContent=data.patientName;
+            document.getElementById('sigPatientId').textContent=data.patientId;
+            document.getElementById('sigPhn').textContent=data.phn;
+            document.getElementById('sigPhysicianName').textContent=data.physicianName;
+            document.getElementById('sigLicense').textContent=data.licenseNumber;
+            document.getElementById('sigNpi').textContent=data.npiNumber;
+            
+            document.getElementById('inputSection').style.display='none';
+            document.getElementById('resultsSection').style.display='block';
+            
+            if(bvasData){
+                document.getElementById('bvasSummaryCard').style.display='block';
+                document.getElementById('bvasSummaryHeader').style.backgroundColor=bvasData.colorHex;
+                document.getElementById('bvasSummary').innerHTML=`<strong>BVAS: ${bvasData.total}/63 - ${bvasData.category}</strong>${bvasData.majorItems>0?`<br><small class="text-danger">⚠️ ${bvasData.majorItems} major: ${bvasData.majorItemsList.join(', ')}</small>`:''}<br><small>${bvasData.recommendation}</small>`;
+            }
+            
+            displayTotalDoses(totalCyc,totalPred);
+            displayDosingSummary(data,induction,steroids,maintenance);
+            displayQuickStats(data,risk);
+            displayProminentRisk(data,risk);
+            displayInductionSchedule(induction,steroids);
+            displayMaintenanceSchedule(maintenance);
+            displaySupportiveCare(data,steroids,maintenance,supportive);
+            displayPexivasSchedule(data,steroids);
+            
+            setTimeout(()=>{destroyCharts();createPredChart(steroids);createRibbonChart(data,induction,steroids,maintenance);},200);
+            setTimeout(()=>document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'}),300);
+        }
+
+        function destroyCharts(){Object.values(treatmentCharts).forEach(c=>{try{c.destroy()}catch(e){}});treatmentCharts={};}
+
+        function genInduction(d){
+            const s={type:'',drugs:[],endDate:null};const st=d.startDate;
+            switch(d.inductionChoice){
+                case 1:s.type='RTX+IV CYC (RITUXIVAS)';
+                    s.drugs.push({date:new Date(st),drug:'RTX',dose:'1000mg IV',cat:'rtx',note:'D1/2'});
+                    s.drugs.push({date:addW(st,2),drug:'RTX',dose:'1000mg IV',cat:'rtx',note:'D2/2'});
+                    let d1=new Date(st);
+                    for(let i=0;i<6;i++){s.drugs.push({date:new Date(d1),drug:'CYC IV',dose:'500mg',cat:'cyc',note:`D${i+1}/6`});d1=addW(d1,2);}
+                    s.endDate=addW(st,12);break;
+                case 2:s.type='RTX alone (RAVE)';
+                    for(let i=0;i<4;i++)s.drugs.push({date:addW(st,i),drug:'RTX',dose:'1000mg IV',cat:'rtx',note:`D${i+1}/4`});
+                    s.endDate=addW(st,4);break;
+                case 3:s.type='IV CYC (CYCLOPS)';
+                    const iv=calcIVCyc(d.age,d.weight,d.egfr);
+                    let d3=new Date(st);
+                    for(let i=0;i<3;i++){s.drugs.push({date:new Date(d3),drug:'CYC IV',dose:`${iv.dose}mg`,cat:'cyc',note:`D${i+1}/3`});d3=addW(d3,2);}
+                    for(let i=0;i<3;i++){s.drugs.push({date:new Date(d3),drug:'CYC IV',dose:`${iv.dose}mg`,cat:'cyc',note:`D${i+4}/6`});d3=addW(d3,3);}
+                    s.endDate=addW(st,15);break;
+                case 4:s.type='Oral CYC';
+                    const oc=calcOralCyc(d.age,d.weight,d.egfr);
+                    s.drugs.push({date:new Date(st),drug:'CYC PO',dose:`${oc.dose}mg/d`,cat:'cyc-oral',note:'×3mo'});
+                    s.endDate=addM(st,3);break;
+                case 5:s.type='Avacopan (ADVOCATE)';
+                    s.drugs.push({date:new Date(st),drug:'Avacopan',dose:'30mg BID',cat:'avacopan',note:'×52wk'});
+                    s.endDate=addW(st,52);break;
+                case 6:s.type='MMF (MYCYC)';
+                    s.drugs.push({date:new Date(st),drug:'MMF',dose:'1000mg BID',cat:'mmf',note:'×12wk'});
+                    s.endDate=addW(st,12);break;
+            }
+            s.drugs.sort((a,b)=>a.date-b.date);return s;
+        }
+
+        function genSteroids(d){
+            if(d.inductionChoice===5)return{type:'Rapid (ADVOCATE)',schedule:[
+                {week:1,dose:60,date:addW(d.startDate,0)},{week:2,dose:30,date:addW(d.startDate,1)},
+                {week:3,dose:20,date:addW(d.startDate,2)},{week:4,dose:10,date:addW(d.startDate,3)},
+                {week:5,dose:5,date:addW(d.startDate,4)}],endDate:addW(d.startDate,5)};
+            if(d.steroidChoice==='pexivas'){
+                const w=d.weight,taper=getPexivasTaper(w);
+                return{type:`PEXIVAS (${w<50?'<50':w<=75?'50-75':'>75'}kg)`,
+                    schedule:taper.map(([wk,dose])=>({week:wk,dose,date:addW(d.startDate,wk-1)})),
+                    endDate:addW(d.startDate,52),isPexivas:true};
+            }
+            const sd=Math.min(Math.round(d.weight),80);
+            return{type:'Standard 1mg/kg',schedule:[
+                {week:1,dose:sd,date:addW(d.startDate,0)},{week:2,dose:sd,date:addW(d.startDate,1)},
+                {week:4,dose:Math.round(sd*0.75),date:addW(d.startDate,3)},{week:8,dose:Math.round(sd*0.5),date:addW(d.startDate,7)},
+                {week:12,dose:15,date:addW(d.startDate,11)},{week:24,dose:5,date:addW(d.startDate,23)},
+                {week:52,dose:2.5,date:addW(d.startDate,51)}],endDate:addW(d.startDate,52)};
+        }
+
+        // FIXED: MAINRITSAN maintenance schedule
+        // RTX 500mg IV ×2 doses 14 days apart, starting 4 months after induction start
+        // Then RTX 500mg IV on months 6, 12, 18 from induction start
+        function genMaintenance(d,risk){
+            const s={type:'',drugs:[],startDate:null,endDate:null};
+            switch(d.maintenanceChoice){
+                case 1:s.type='RTX Maintenance (MAINRITSAN)';
+                    // Month 4 from induction start: 2 doses 14 days apart
+                    const m4date1=addM(d.startDate,4);
+                    const m4date2=addD(m4date1,14);
+                    s.startDate=m4date1;
+                    s.drugs.push(
+                        {date:new Date(m4date1),drug:'Rituximab',dose:'500mg IV',cat:'rtx',note:'Mo4 - Dose 1/2'},
+                        {date:new Date(m4date2),drug:'Rituximab',dose:'500mg IV',cat:'rtx',note:'Mo4 - Dose 2/2 (14d later)'}
+                    );
+                    // Month 6, 12, 18 from induction start
+                    [6,12,18].forEach(m=>{
+                        s.drugs.push({date:addM(d.startDate,m),drug:'Rituximab',dose:'500mg IV',cat:'rtx',note:`Mo${m} maintenance`});
+                    });
+                    s.duration='18 months';
+                    s.endDate=addM(d.startDate,18);
+                    // For high risk, add months 24, 30, 36
+                    if(risk.category==='High'){
+                        [24,30,36].forEach(m=>{
+                            s.drugs.push({date:addM(d.startDate,m),drug:'Rituximab',dose:'500mg IV',cat:'rtx',note:`Mo${m} maintenance (high risk)`});
+                        });
+                        s.duration='36 months';
+                        s.endDate=addM(d.startDate,36);
+                    }
+                    break;
+                case 2:s.type='AZA 1yr Taper';const eoi=getEndInduction(d);s.startDate=new Date(eoi);const a1=calcAZA(d.weight);
+                    s.drugs.push({date:new Date(s.startDate),drug:'Azathioprine',dose:`${a1.dose}mg/d`,cat:'aza',note:'1.75mg/kg/d×1yr'});
+                    let cd=a1.dose,ts=addM(s.startDate,12);s.duration='~2 years';
+                    while(cd>0){cd=Math.max(0,cd-25);s.drugs.push({date:new Date(ts),drug:'Azathioprine',dose:cd>0?`${cd}mg/d`:'STOP',cat:cd>0?'aza':'stop',note:cd>0?'Taper 25mg q3mo':'Stop'});ts=addM(ts,3);}
+                    s.endDate=ts;break;
+                case 3:s.type='Extended AZA';const eoi3=getEndInduction(d);s.startDate=new Date(eoi3);const a2=calcAZA(d.weight);
+                    s.drugs.push({date:new Date(s.startDate),drug:'Azathioprine',dose:`${a2.dose}mg/d`,cat:'aza',note:'P1:1.75mg/kg/d×21mo'});
+                    const rd=Math.round(d.weight/25)*25;s.drugs.push({date:addM(s.startDate,21),drug:'Azathioprine',dose:`${rd}mg/d`,cat:'aza',note:'P2:1.0mg/kg/d×4yr'});
+                    let td=rd,tdd=new Date(addM(s.startDate,69));s.duration='~6-7 years';
+                    while(td>0){td=Math.max(0,td-25);s.drugs.push({date:new Date(tdd),drug:'Azathioprine',dose:td>0?`${td}mg/d`:'STOP',cat:td>0?'aza':'stop',note:td>0?'P3:Taper':'Stop'});tdd=addM(tdd,3);}
+                    s.endDate=tdd;break;
+                case 4:s.type='MMF Maintenance (IMPROVE)';const eoi4=getEndInduction(d);s.startDate=new Date(eoi4);
+                    s.drugs.push({date:new Date(s.startDate),drug:'Mycophenolate',dose:'1000mg BID',cat:'mmf',note:'×2yr'});
+                    s.drugs.push({date:addM(s.startDate,24),drug:'Mycophenolate',dose:'STOP',cat:'stop',note:'Discontinue'});
+                    s.duration='2 years';s.endDate=addM(s.startDate,24);break;
+            }
+            s.drugs.sort((a,b)=>a.date-b.date);return s;
+        }
+
+        function genSupportive(d){
+            const c=['PPI: Pantoprazole 40mg/d while pred>5mg','PJP ppx: TMP-SMX DS 3×/wk','Ca+VitD supplementation','Bisphosphonate if indicated','BP target <130/80 mmHg'];
+            if(d.inductionChoice===4){c.push('⚠️ Weekly CBC on oral CYC');c.push('⚠️ Fluids ≥2L/day');}
+            if(d.maintenanceChoice===2||d.maintenanceChoice===3){c.push('🧬 Check TPMT before AZA');c.push('⚠️ Avoid allopurinol with AZA');}
+            if(d.maintenanceChoice===4){c.push('CBC monthly for first year');c.push('⚠️ Pregnancy test (MMF teratogenic)');}
+            if(d.maintenanceChoice===1){c.push('💉 Pre-medicate before RTX: acetaminophen, diphenhydramine, hydrocortisone');}
+            if(bvasData&&bvasData.total>=15)c.push('🩺 High BVAS: Consider plasma exchange');
+            return c;
+        }
+
+        function displayTotalDoses(cyc,pred){
+            let h='';
+            if(cyc.totalMg>0)h+=`<div class="col-md-6"><div class="total-dose-card cyc-card"><div class="total-dose-label">Total Cyclophosphamide</div><div class="total-dose-value">${cyc.totalMg.toLocaleString()} mg</div><div class="total-dose-detail">= ${cyc.totalG}g | ${cyc.details.join(' | ')}</div></div></div>`;
+            h+=`<div class="col-md-${cyc.totalMg>0?'6':'12'}"><div class="total-dose-card pred-card"><div class="total-dose-label">Total Prednisone</div><div class="total-dose-value">${pred.totalMg.toLocaleString()} mg</div><div class="total-dose-detail">= ${pred.totalG}g over ${pred.details.length} periods</div></div></div>`;
+            document.getElementById('totalDoseSummary').innerHTML=h;
+        }
+
+        function displayDosingSummary(d,ind,ste,maint){
+            let h='<div class="row">';
+            if(d.inductionChoice===3){const c=calcIVCyc(d.age,d.weight,d.egfr);h+=`<div class="col-3"><div class="info-box"><strong>IV CYC:</strong> <span class="dose-highlight">${c.dose}mg</span> ×6</div></div>`;}
+            if(d.inductionChoice===4){const c=calcOralCyc(d.age,d.weight,d.egfr);h+=`<div class="col-3"><div class="info-box"><strong>Oral CYC:</strong> <span class="dose-highlight">${c.dose}mg/d</span></div></div>`;}
+            h+=`<div class="col-3"><div class="info-box"><strong>Pred:</strong> <span class="dose-highlight">${ste.schedule[0].dose}mg</span> start<br><small>from ${fmt(ste.schedule[0].date)}</small></div></div>`;
+            if(d.maintenanceChoice===2||d.maintenanceChoice===3){const a=calcAZA(d.weight);h+=`<div class="col-3"><div class="info-box"><strong>AZA:</strong> <span class="dose-highlight">${a.dose}mg/d</span></div></div>`;}
+            if(d.maintenanceChoice===1){h+=`<div class="col-3"><div class="info-box"><strong>RTX Maint:</strong> <span class="dose-highlight">500mg IV</span><br><small>×2 at Mo4, then q6mo</small></div></div>`;}
+            h+='</div>';document.getElementById('dosingSummary').innerHTML=h;
+        }
+
+        function displayQuickStats(d,risk){
+            const rc={High:'danger',Moderate:'warning',Low:'success'}[risk.category];
+            document.getElementById('quickStats').innerHTML=`
+                <div class="col-2"><div class="stat-card"><div class="stat-value text-${rc}">${risk.category}</div><div class="stat-label">Risk</div></div></div>
+                <div class="col-2"><div class="stat-card"><div class="stat-value">${d.egfr}</div><div class="stat-label">eGFR</div></div></div>
+                <div class="col-2"><div class="stat-card"><div class="stat-value">${bvasData?bvasData.total:'-'}</div><div class="stat-label">BVAS</div></div></div>
+                <div class="col-3"><div class="stat-card"><div class="stat-value" style="font-size:0.85rem;">${['RTX+CYC','RTX','IV CYC','Oral CYC','Avacopan','MMF'][d.inductionChoice-1]}</div><div class="stat-label">Induction</div></div></div>
+                <div class="col-3"><div class="stat-card"><div class="stat-value" style="font-size:0.85rem;">${['RTX Maint','AZA 1yr','AZA Ext','MMF Maint'][d.maintenanceChoice-1]}</div><div class="stat-label">Maintenance</div></div></div>`;
+        }
+
+        function displayProminentRisk(d,risk){
+            const rcClass=risk.category==='High'?'high-risk':risk.category==='Moderate'?'moderate-risk':'low-risk';
+            const header=document.getElementById('riskProminentHeader');
+            header.className=`risk-prominent-header ${rcClass}`;
+            header.innerHTML=`⚠️ Risk Assessment: <span class="risk-category-display">${risk.category} Risk</span> — Score: <span class="risk-score-display">${risk.score}/10</span>`;
+            
+            let h='';
+            h+=`<div class="row"><div class="col-md-8">`;
+            h+=`<h6 style="color:var(--primary);margin-bottom:5px;">Risk Factors Identified:</h6>`;
+            h+=`<div style="margin-bottom:8px;">${risk.factors.map(f=>`<span class="risk-factor-badge">⚠ ${f}</span>`).join(' ')}</div>`;
+            if(akrisData)h+=`<div class="info-box"><strong>🧬 AKRiS Score: ${akrisData.score}</strong> — ${akrisData.category} | 36-month kidney survival: <strong>${akrisData.survival}%</strong></div>`;
+            h+=`</div><div class="col-md-4">`;
+            h+=`<div class="info-box" style="background:#fff8e1;border-left-color:#f59e0b;"><strong>📋 Recommendation:</strong><br>${risk.recommendation}</div>`;
+            h+=`</div></div>`;
+            
+            h+=`<hr style="margin:6px 0;"><h6 style="color:var(--primary);margin-bottom:3px;">📅 Monitoring Schedule:</h6>`;
+            h+=`<div class="row"><div class="col-md-6"><small>`;
+            h+=`• During induction: CBC, Cr, urinalysis q1-2 weeks<br>`;
+            h+=`• Monthly CBC while on cyclophosphamide<br>`;
+            h+=`• q3 months: eGFR, proteinuria, ANCA titer`;
+            h+=`</small></div><div class="col-md-6"><small>`;
+            h+=`• q6 months: Immunoglobulins, CD19/20 counts (if on RTX)<br>`;
+            h+=`• Annual: Cardiovascular risk assessment<br>`;
+            h+=`• eGFR: ${d.egfr} mL/min/1.73m² | Cr: ${d.creatinine} μmol/L | Age: ${d.age} | ${d.sex==='male'?'Male':'Female'}`;
+            h+=`</small></div></div>`;
+            
+            document.getElementById('riskProminentBody').innerHTML=h;
+        }
+
+        function displayInductionSchedule(ind,ste){
+            const bc={rtx:'badge-rtx',cyc:'badge-cyc','cyc-oral':'badge-cyc-oral',avacopan:'badge-avacopan',mmf:'badge-mmf'};
+            const cc={rtx:'drug-rtx',cyc:'drug-cyc','cyc-oral':'drug-cyc-oral',avacopan:'drug-avacopan',mmf:'drug-mmf'};
+            let h=`<strong>${ind.type}</strong> | Steroid: ${ste.type}<br><small>All dates start from: ${fmt(ste.schedule[0].date)}</small><hr>`;
+            ind.drugs.forEach(d=>{h+=`<div class="treatment-timeline-item ${cc[d.cat]||''}"><div class="d-flex justify-content-between"><span><strong>${fmt(d.date)}</strong> ${d.drug}</span><span class="${bc[d.cat]||''}">${d.dose}</span></div></div>`;});
+            document.getElementById('inductionSchedule').innerHTML=h;
+        }
+
+        function displayMaintenanceSchedule(maint){
+            const bc={rtx:'badge-rtx',aza:'badge-aza',mmf:'badge-mmf',stop:'badge-stop'};
+            const cc={rtx:'drug-rtx',aza:'drug-aza',mmf:'drug-mmf',stop:'drug-stop'};
+            let h=`<strong>${maint.type}</strong> | Duration: ${maint.duration || 'See schedule'}<br><small>Starts: ${fmt(maint.startDate)}</small><hr>`;
+            maint.drugs.forEach(d=>{const s=d.dose==='STOP';h+=`<div class="treatment-timeline-item ${cc[d.cat]||''}"><div class="d-flex justify-content-between"><span><strong>${fmt(d.date)}</strong> ${d.drug}</span><span class="${s?'badge-stop':bc[d.cat]||''}">${d.dose}</span></div><small>${d.note||''}</small></div>`;});
+            document.getElementById('maintenanceSchedule').innerHTML=h;
+        }
+
+        function displaySupportiveCare(d,ste,maint,supp){
+            let h=`<ul class="list-unstyled mb-1">${supp.map(s=>`<li style="font-size:0.75rem;">• ${s}</li>`).join('')}</ul>`;
+            h+=`<small>Induction ends: ${fmt(getEndInduction(d))}<br>Maintenance starts: ${fmt(maint.startDate)}<br>Prednisone ends: ${fmt(ste.endDate)}</small>`;
+            document.getElementById('supportiveCare').innerHTML=h;
+        }
+
+        function displayPexivasSchedule(d,ste){
+            if(!ste.isPexivas){document.getElementById('pexivasScheduleContent').innerHTML='<small class="text-muted">Standard steroid protocol selected.</small>';return;}
+            const taper=getPexivasTaper(d.weight),periods=[];let cd=null,psw=null;
+            for(let i=0;i<taper.length;i++){const[wk,dose]=taper[i];if(dose!==cd){if(cd!==null){const ew=wk-1;
+                periods.push({dose:cd,sW:psw,eW:ew,sD:addW(d.startDate,psw-1),eD:addD(addW(d.startDate,ew),-1),wks:ew-psw+1});}cd=dose;psw=wk;}}
+            if(cd!==null){periods.push({dose:cd,sW:psw,eW:52,sD:addW(d.startDate,psw-1),eD:addD(addW(d.startDate,52),-1),wks:52-psw+1});}
+            let h=`<div class="table-responsive"><table class="taper-table"><thead><tr><th>Period</th><th>Dose</th><th>Start</th><th>End</th><th>Wks</th></tr></thead><tbody>`;
+            periods.forEach(p=>{h+=`<tr><td>W${p.sW}${p.sW!==p.eW?'-'+p.eW:''}</td><td><strong>${p.dose}mg/d</strong></td><td>${fmt(p.sD)}</td><td>${fmt(p.eD)}</td><td>${p.wks}</td></tr>`;});
+            h+=`</tbody></table></div><small>Week 1 = treatment start date (${fmt(d.startDate)})</small>`;
+            document.getElementById('pexivasScheduleContent').innerHTML=h;
+        }
+
+        function createPredChart(ste){
+            const canvas=document.getElementById('predChart');if(!canvas)return;
+            const ctx=canvas.getContext('2d');
+            const weeks=ste.schedule.map(s=>s.week),doses=ste.schedule.map(s=>s.dose);
+            treatmentCharts.pred=new Chart(ctx,{type:'line',data:{labels:weeks,datasets:[{label:'Prednisone (mg/d)',data:doses,borderColor:'#db2777',backgroundColor:'rgba(219,39,119,0.08)',fill:true,tension:0.4,pointRadius:weeks.length>20?0:2,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'Prednisone Taper',font:{size:10}},legend:{labels:{font:{size:8}}}},scales:{x:{title:{display:true,text:'Week',font:{size:8}},max:54,ticks:{font:{size:7}}},y:{title:{display:true,text:'mg/d',font:{size:8}},min:0,ticks:{font:{size:7}}}}}});
+        }
+
+        function createRibbonChart(d,ind,ste,maint){
+            const canvas=document.getElementById('ribbonChart');if(!canvas)return;
+            const ctx=canvas.getContext('2d');
+            const sT=d.startDate.getTime(),twoY=addM(d.startDate,24).getTime();
+            const datasets=[],yl=[];let cy=0;
+            if(ste.endDate){datasets.push({label:'Prednisone',data:[{x:sT,y:cy},{x:Math.min(ste.endDate.getTime(),twoY),y:cy}],backgroundColor:'rgba(219,39,119,0.4)',borderColor:'#db2777',borderWidth:2,borderRadius:3,barPercentage:0.35});yl.push('Pred');cy++;}
+            const cycD=ind.drugs.filter(d=>d.cat==='cyc'||d.cat==='cyc-oral');
+            if(cycD.length>0){datasets.push({label:'CYC',data:[{x:cycD[0].date.getTime(),y:cy},{x:Math.min(ind.endDate.getTime(),twoY),y:cy}],backgroundColor:'rgba(239,68,68,0.4)',borderColor:'#ef4444',borderWidth:2,borderRadius:3,barPercentage:0.35});yl.push('CYC');cy++;}
+            const rtxM=maint.drugs.filter(d=>d.cat==='rtx');
+            if(rtxM.length>0){datasets.push({label:'RTX',data:[{x:rtxM[0].date.getTime(),y:cy},{x:Math.min(maint.endDate?maint.endDate.getTime():twoY,twoY),y:cy}],backgroundColor:'rgba(59,130,246,0.3)',borderColor:'#3b82f6',borderWidth:2,borderRadius:3,barPercentage:0.35});yl.push('RTX');cy++;}
+            const azaD=maint.drugs.filter(d=>d.cat==='aza');
+            if(azaD.length>0){datasets.push({label:'AZA',data:[{x:azaD[0].date.getTime(),y:cy},{x:Math.min(maint.endDate?maint.endDate.getTime():twoY,twoY),y:cy}],backgroundColor:'rgba(16,185,129,0.3)',borderColor:'#10b981',borderWidth:2,borderRadius:3,barPercentage:0.35});yl.push('AZA');cy++;}
+            treatmentCharts.ribbon=new Chart(ctx,{type:'bar',data:{datasets},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{title:{display:true,text:'Drug Duration',font:{size:10}},legend:{position:'bottom',labels:{font:{size:7},filter:i=>i.text!==''}}},scales:{x:{type:'linear',min:sT-7*86400000,max:twoY,ticks:{font:{size:7},callback:v=>new Date(v).toLocaleDateString('en-US',{month:'short',year:'2-digit'})}},y:{ticks:{font:{size:7},callback:v=>yl[Math.floor(v)]||''}}}}});
+        }
+
+        function newPlan(){document.getElementById('inputSection').style.display='block';document.getElementById('resultsSection').style.display='none';document.getElementById('currentPatient').textContent='New Patient';destroyCharts();window.scrollTo({top:0,behavior:'smooth'});}
+        function exportData(){
+            if(!currentPlanData){alert('Generate plan first.');return;}
+            const ep={patient:currentPlanData.patient,totalDoses:currentPlanData.totalCyc.totalMg>0?{cyc:currentPlanData.totalCyc,pred:currentPlanData.totalPred}:{pred:currentPlanData.totalPred},risk:currentPlanData.risk,bvas:bvasData,akris:akrisData,induction:currentPlanData.induction.type,maintenance:currentPlanData.maintenance.type,version:'7.7'};
+            const b=new Blob([JSON.stringify(ep,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');
+            a.href=u;a.download=`ANCA_Plan_${ep.patient.patientName.replace(/\s+/g,'_')}_${fmt(new Date())}.json`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+        }
+
+        console.log('✅ ANCA Planner v7.7 - MAINRITSAN: RTX 500mg×2 at Mo4 (14d apart), then Mo6,12,18');
+    </script>
+</body>
+</html>
